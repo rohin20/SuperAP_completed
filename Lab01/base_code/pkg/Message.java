@@ -5,13 +5,25 @@ import java.io.*;
 public class Message {
 
 	// Default Constructor
+	String author;
+	String sub;
+	String body;
+	int id;
+	int i = 0;
+	public ArrayList<Message> children = new ArrayList<Message>();
 	public Message() {
-		
+		author = "";
+		sub = "";
+		body = "";
+		id = 0;
 	}
 	
 	// Parameterized Constructor
 	public Message(String auth, String subj, String bod, int i) {
-		
+		author = auth;
+		sub = subj;
+		body = bod;
+		id = i;
 	}
 
 	// This function is responsbile for printing the Message
@@ -24,6 +36,19 @@ public class Message {
 	// Note: Each indentation increment represents 2 spaces. e.g. if indentation ==  1, the reply should be indented 2 spaces, 
 	// if it's 2, indent by 4 spaces, etc. 
 	public void print(int indentation){
+		ind = indentation*2;
+		String spa = "";
+		for(int c = 0;c<ind;c++){
+			spa = spa + ""
+		}
+		System.out.println("\""+sub+"\"");
+		System.out.println("from "+"author	" + "\""+body+"\"");
+
+		i++;
+		if(i<children.size()){
+			childList.get(i).print(indentation+1)																	)
+
+		}
 
 	}
 
