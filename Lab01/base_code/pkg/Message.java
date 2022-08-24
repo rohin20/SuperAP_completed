@@ -37,16 +37,16 @@ public class Message {
 	// if it's 2, indent by 4 spaces, etc. 
 	public void print(int indentation){
 		ind = indentation*2;
-		String spa = "";
+		String sp = "";
 		for(int c = 0;c<ind;c++){
-			spa = spa + ""
+			sp = sp + ""
 		}
-		System.out.println("\""+sub+"\"");
-		System.out.println("from "+"author	" + "\""+body+"\"");
+		System.out.println(sp+"\""+sub+"\"");
+		System.out.println(sp+"from "+"author	" + "\""+body+"\"");
 
-		i++;
 		if(i<children.size()){
-			childList.get(i).print(indentation+1)																	)
+			childList.get(i).print(indentation+1)	
+			i++																)
 
 		}
 
@@ -59,17 +59,18 @@ public class Message {
 
 	// Returns the subject String
 	public String getSubject(){
-		
+		return sub;
+	
 	} 
 
 	// Returns the ID
 	public int getId(){
-		
+		return id;
 	}
 
 	// Adds a child pointer to the parent's childList.
 	public void addChild(Message child){
-		
+		children.add(child);
 	}
 
 }
