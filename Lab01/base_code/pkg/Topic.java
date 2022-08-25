@@ -12,6 +12,10 @@ public class Topic extends Message {
 
 	// Parameterized constructor
 	public Topic(String auth, String subj, String bod, int i) {
+		author = auth;
+		sub = subj;
+		body = bod;
+		id = i;
 
 	}
 

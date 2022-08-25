@@ -5,12 +5,12 @@ import java.io.*;
 public class Message {
 
 	// Default Constructor
-	String author;
-	String sub;
-	String body;
-	int id;
+	public String author;
+	public String sub;
+	public String body;
+	public int id;
 	int i = 0;
-	public ArrayList<Message> children = new ArrayList<Message>();
+	public ArrayList<Message> messageList = new ArrayList<Message>();
 	public Message() {
 		author = "";
 		sub = "";
@@ -36,25 +36,29 @@ public class Message {
 	// Note: Each indentation increment represents 2 spaces. e.g. if indentation ==  1, the reply should be indented 2 spaces, 
 	// if it's 2, indent by 4 spaces, etc. 
 	public void print(int indentation){
-		ind = indentation*2;
+		int ind = indentation*2;
 		String sp = "";
 		for(int c = 0;c<ind;c++){
-			sp = sp + ""
+			sp = sp + "";
 		}
 		System.out.println(sp+"\""+sub+"\"");
-		System.out.println(sp+"from "+"author	" + "\""+body+"\"");
+		System.out.println(sp+"from "+author + "\""+body+"\"");
 
-		if(i<children.size()){
-			childList.get(i).print(indentation+1)	
-			i++																)
+		
+		messageList.get(i).print(ind);	
+																			
 
-		}
+		
 
 	}
 
 	// Default function for inheritance
 	public boolean isReply(){
-		
+		if(this instanceof Reply){
+			return true;
+
+		}
+		return false;
 	}
 
 	// Returns the subject String
@@ -70,7 +74,7 @@ public class Message {
 
 	// Adds a child pointer to the parent's childList.
 	public void addChild(Message child){
-		children.add(child);
+		messageList.add(child);
 	}
 
 }

@@ -4,21 +4,43 @@ import java.io.*;
 
 public class BBoard {		// This is your main file that connects all classes.
 	// Think about what your global variables need to be.
+	String usr;
+	String title;
+	public ArrayList<Message> msg = new ArrayList<Message>();
+	Scanner sc = new Scanner(users.txt);
+
 
 	// Default constructor that creates a board with a defaulttitle, empty user and message lists,
 	// and no current user
 	public BBoard() {
+		usr = "";
+		title = "";
+
+
 		
 	}
 
 	// Same as the default constructor except it sets the title of the board
 	public BBoard(String ttl) {	
+		usr = "";
+		title = ttl;
+
 	}
 
 	// Gets a filename of a file that stores the user info in a given format (users.txt)
 	// Opens and reads the file of all authorized users and passwords
 	// Constructs a User object from each name/password pair, and populates the userList ArrayList.
 	public void loadUsers(String inputFile) throws FileNotFoundException {
+        int lineNumber = 1;
+        while(scnr.hasNextLine()){
+            String line = scnr.nextLine();
+            
+            lineNumber++;
+        }      
+
+Read more: https://www.java67.com/2012/11/how-to-read-file-in-java-using-scanner-example.html#ixzz7czpWjoqM
+
+
 
 	}
 
