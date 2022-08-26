@@ -4,16 +4,17 @@ import java.io.*;
 
 public class BBoard {		// This is your main file that connects all classes.
 	// Think about what your global variables need to be.
-	String usr;
+	int currentusr = 0;
 	String title;
-	public ArrayList<Message> msg = new ArrayList<Message>();
-	Scanner sc = new Scanner(users.txt);
+	public ArrayList<User> userList = new ArrayList<User>();
+	Scanner sc = new Scanner("users.txt");
+	Scanner s = new Scanner(System.in);
 
 
 	// Default constructor that creates a board with a defaulttitle, empty user and message lists,
 	// and no current user
 	public BBoard() {
-		usr = "";
+
 		title = "";
 
 
@@ -22,7 +23,7 @@ public class BBoard {		// This is your main file that connects all classes.
 
 	// Same as the default constructor except it sets the title of the board
 	public BBoard(String ttl) {	
-		usr = "";
+		
 		title = ttl;
 
 	}
@@ -31,15 +32,14 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Opens and reads the file of all authorized users and passwords
 	// Constructs a User object from each name/password pair, and populates the userList ArrayList.
 	public void loadUsers(String inputFile) throws FileNotFoundException {
-        int lineNumber = 1;
-        while(scnr.hasNextLine()){
-            String line = scnr.nextLine();
+        while(sc.hasNextLine()){
+            String p = sc.nextLine();
+            System.out.println(p);
+			String user = p.substring(0,p.indexOf(" "));
+			String pword = p.substring(p.length()-1, p.length());
+			userList.add(new User(user, pword));
             
-            lineNumber++;
         }      
-
-Read more: https://www.java67.com/2012/11/how-to-read-file-in-java-using-scanner-example.html#ixzz7czpWjoqM
-
 
 
 	}
@@ -50,6 +50,22 @@ Read more: https://www.java67.com/2012/11/how-to-read-file-in-java-using-scanner
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
 	public void login(){
+		while(true){
+			System.out.println("enter username");
+			String u = s.nextLine();
+			System.out.println("enter password");
+			String pas = s.nextLine();		
+			if(u.equals("q")){
+				System.exit(0);
+			}
+			for(int i = 0; i < userList.size(); i++){
+				if(userList.get(i).check(u,pas)){
+					currentusr = i;
+				}
+			}
+		}
+
+
 
 	}
 	
@@ -64,6 +80,35 @@ Read more: https://www.java67.com/2012/11/how-to-read-file-in-java-using-scanner
 	// Q/q should reset the currentUser to 0 and then end return
 	// Note: if login() did not set a valid currentUser, function must immediately return without showing menu
 	public void run(){
+		Scanner sc = new Scanner(System.in);
+		String usr_inp;
+		if(currentusr != 0){
+			while(true){
+				System.out.println("--- Display Messages ('D' or 'd')");
+				System.out.println("--- Add New Topic ('N' or 'n')");
+				System.out.println("--- Add Reply ('R' or 'r')");
+				System.out.println("--- Change Password ('P' or 'p')");
+				System.out.println("--- Quit ('Q' or 'q')");
+				usr_inp = sc.nextLine();
+				if(usr_inp.equals("q")){
+					currentusr = 0;
+					System.exit(0);
+				}
+				if(usr_inp.equals("d")||usr_inp.equals("D")){
+					display();
+				}
+				if(usr_inp.equals("n")||usr_inp.equals("N")){
+					addTopic();
+				}
+				if(usr_inp.equals("r")||usr_inp.equals("R")){
+					addReply();
+				}
+				if(usr_inp.equals("p")||usr_inp.equals("P")){
+					setPassword();
+				}
+			}
+
+		}
 
 	}
 

@@ -21,6 +21,10 @@ public class Topic extends Message {
 
 	// Returns if it's a reply (false)
 	public boolean isReply(){
+		if(this instanceof Reply){
+			return false;
+		}
+		return true;
 
 	}
 }

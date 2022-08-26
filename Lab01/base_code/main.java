@@ -12,7 +12,7 @@ class main {        // This should be all that is in your main.java file.
         Message hi = new Message("ro", "hi", "hi", 1);
         hi.addChild(new Reply("hi", "ro", "rohin", 2));
         hi.addChild(new Reply("hisdf", "rdfssdfo", "rohisfdsdfn", 3));
-        hi.print(2);
+        
 
         // Examine data.txt for example Messages displayed from the BBoard
 

@@ -20,6 +20,9 @@ public class Reply extends Message {
 
 	// Returns if this is a reply (true)
 	public boolean isReply(){
-		return true;
+		if(this instanceof Reply){
+			return true;
+	}
+	else return false;
 	}
 }
