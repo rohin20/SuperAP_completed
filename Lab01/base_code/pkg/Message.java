@@ -10,7 +10,7 @@ public class Message {
 	public String body;
 	public int id;
 	int i = 0;
-	public ArrayList<Message> messageList = new ArrayList<Message>();
+	public ArrayList<Message> childList = new ArrayList<Message>();
 	public Message() {
 		author = "";
 		sub = "";
@@ -36,7 +36,20 @@ public class Message {
 	// Note: Each indentation increment represents 2 spaces. e.g. if indentation ==  1, the reply should be indented 2 spaces, 
 	// if it's 2, indent by 4 spaces, etc. 
 	public void print(int indentation){
-		System.out.println("helllooootest");
+		String ind = " ";
+		for(int b = indentation*2;b>0;b--){
+			ind += ind;
+		}
+		
+		
+		System.out.println(ind + "Message #"+id-1 + ""+sub);
+		System.out.println(ind+"From"+author+":"+"   "+body);
+		
+		for(int i = 0; i<childList.size();i++){
+			childList.get(i).print(indentation+1);
+
+		}
+		
 
 	}
 
@@ -63,7 +76,7 @@ public class Message {
 
 	// Adds a child pointer to the parent's childList.
 	public void addChild(Message child){
-		messageList.add(child);
+		childList.add(child);
 	}
 
 }
