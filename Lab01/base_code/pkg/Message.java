@@ -10,7 +10,7 @@ public class Message {
 	public String body;
 	public int id;
 	int i = 0;
-	public ArrayList<Message> messageList = new ArrayList<Message>();
+	public ArrayList<Message> childList = new ArrayList<Message>();
 	public Message() {
 		author = "";
 		sub = "";
@@ -63,7 +63,7 @@ public class Message {
 
 	// Adds a child pointer to the parent's childList.
 	public void addChild(Message child){
-		messageList.add(child);
+		childList.add(child);
 	}
 
 }

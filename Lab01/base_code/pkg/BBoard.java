@@ -4,9 +4,10 @@ import java.io.*;
 
 public class BBoard {		// This is your main file that connects all classes.
 	// Think about what your global variables need to be.
-	int currentusr = 0;
+	User currentusr = new User();
 	String title;
 	public ArrayList<User> userList = new ArrayList<User>();
+	public ArrayList<Message> messageList = new ArrayList<Message>();
 	Scanner s = new Scanner(System.in);
 
 
@@ -35,7 +36,7 @@ public class BBoard {		// This is your main file that connects all classes.
         while(sc.hasNextLine()){
             String p = sc.nextLine();
 			String user = p.substring(0,p.indexOf(" "));
-			String pword = p.substring(p.length()-1, p.length());
+			String pword = p.substring(p.indexOf(" ")+1, p.length());
 			userList.add(new User(user, pword));
             
         }      
@@ -54,8 +55,9 @@ public class BBoard {		// This is your main file that connects all classes.
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
 	public void login(){
-		boolean flag = true;
-		while(flag){
+		boolean flag = false;
+
+		while(!flag){
 			System.out.println("enter username");
 			String u = s.nextLine();		
 			if(u.equals("q")|| u.equals("Q")){
@@ -63,19 +65,14 @@ public class BBoard {		// This is your main file that connects all classes.
 			}
 			System.out.println("enter password");
 			String pas = s.nextLine();
-			for(int i = 0; i < userList.size(); i++){
-				System.out.println(userList.size());
-				if(userList.get(i).check(u,pas)== true){
-					System.out.println("test2");
+			for(User i : userList){
+
+				if(i.check(u,pas)){
+
 					currentusr = i;
-					flag = false;
-					break;
+				
+					flag = true;
 					
-				}
-				else{
-					currentusr = -1;
-					flag = false;
-					break;
 				}
 			}
 			
@@ -99,7 +96,7 @@ public class BBoard {		// This is your main file that connects all classes.
 		login();
 		Scanner sc = new Scanner(System.in);
 		String usr_inp;
-		if(currentusr >= 0){
+		if(!currentusr.getUsername().equals("") ){
 			while(true){
 				System.out.println("--- Display Messages ('D' or 'd')");
 				System.out.println("--- Add New Topic ('N' or 'n')");
@@ -108,7 +105,6 @@ public class BBoard {		// This is your main file that connects all classes.
 				System.out.println("--- Quit ('Q' or 'q')");
 				usr_inp = sc.nextLine();
 				if(usr_inp.equals("q")){
-					currentusr = 0;
 					System.exit(0);
 				}
 				if(usr_inp.equals("d")||usr_inp.equals("D")){
@@ -133,6 +129,15 @@ public class BBoard {		// This is your main file that connects all classes.
 	// It will then be the responsibility of the Topic object to invoke the print function recursively on its own replies
 	// The BBoard display function will ignore all reply objects in its message list
 	private void display(){
+		for(Message i : messageList){
+			if(i instanceof Topic){
+				i.print(0);
+				
+			}
+			
+		}
+		
+		
 
 	}
 
@@ -152,6 +157,12 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Once the Topic has been constructed, add it to the messageList
 	// This should invoke your inheritance of Topic to Message
 	private void addTopic(){
+		System.out.println("create a new subject");
+		String inp = s.nextLine();
+		System.out.println("create a new body");
+		String bod = s.nextLine();		
+		messageList.add(new Topic(currentusr.getUsername(), inp, bod, messageList.size()+1));
+		
 
 	}
 
@@ -185,6 +196,21 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Finally, push back the Message created to the BBoard's messageList. 
 	// Note: When the user chooses to return to the menu, do not call run() again - just return fro mthis addReply function. 
 	private void addReply(){
+		System.out.println("enter the id to the message you are replying to");
+		int inp = s.nextInt();
+		s.nextLine();
+		if(inp>messageList.size()){
+			System.out.println("not an id");
+			addReply();
+		}	
+		if(inp != -1){
+			System.out.println("type the body fo the new reply");
+			String rep = s.nextLine();
+			Reply repl = new Reply(currentusr.getUsername(), ("re: "+ messageList.get(inp).getSubject()), rep, messageList.size());
+			messageList.get(inp).addChild(repl);
+			messageList.add(repl);
+		}
+		
 
 	}
 
@@ -196,7 +222,27 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Any password is allowed except 'c' or 'C' for allowing the user to quit out to the menu. 
 	// Once entered, the user will be told "Password Accepted." and returned to the menu.
 	private void setPassword(){
+		System.out.println("old pass: ");
+		String inp = s.nextLine();
 		
+		if(!inp.equals("c")|| !inp.equals("C") && currentusr.check(currentusr.getUsername(),inp)){
+			
+			while(true){
+				System.out.println("New pass: ");
+				String nu = s.nextLine();
+				if(nu.equals("c")|| nu.equals("C")){
+					System.out.println("no c");
+				}
+				else{
+					currentusr.setPassword(inp,nu);
+					break;
+				}
+			
+			}
+			
+		}
+		
+		return;
 	}
 
 }
