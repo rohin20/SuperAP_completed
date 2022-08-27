@@ -9,9 +9,9 @@ class main {        // This should be all that is in your main.java file.
         myBoard.run();
 
         // Feel free to add code for testing purposes. 
-        Message hi = new Message("ro", "hi", "hi", 1);
-        hi.addChild(new Reply("hi", "ro", "rohin", 2));
-        hi.addChild(new Reply("hisdf", "rdfssdfo", "rohisfdsdfn", 3));
+        //Message hi = new Message("ro", "hi", "hi", 1);
+        //hi.addChild(new Reply("hi", "ro", "rohin", 2));
+        //hi.addChild(new Reply("hisdf", "rdfssdfo", "rohisfdsdfn", 3));
         
 
         // Examine data.txt for example Messages displayed from the BBoard

@@ -7,7 +7,6 @@ public class BBoard {		// This is your main file that connects all classes.
 	int currentusr = 0;
 	String title;
 	public ArrayList<User> userList = new ArrayList<User>();
-	Scanner sc = new Scanner("users.txt");
 	Scanner s = new Scanner(System.in);
 
 
@@ -32,14 +31,19 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Opens and reads the file of all authorized users and passwords
 	// Constructs a User object from each name/password pair, and populates the userList ArrayList.
 	public void loadUsers(String inputFile) throws FileNotFoundException {
+		Scanner sc = new Scanner(new File(inputFile));
         while(sc.hasNextLine()){
             String p = sc.nextLine();
-            System.out.println(p);
 			String user = p.substring(0,p.indexOf(" "));
 			String pword = p.substring(p.length()-1, p.length());
 			userList.add(new User(user, pword));
             
         }      
+
+		
+
+		
+
 
 
 	}
@@ -50,19 +54,31 @@ public class BBoard {		// This is your main file that connects all classes.
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
 	public void login(){
-		while(true){
+		boolean flag = true;
+		while(flag){
 			System.out.println("enter username");
-			String u = s.nextLine();
-			System.out.println("enter password");
-			String pas = s.nextLine();		
-			if(u.equals("q")){
+			String u = s.nextLine();		
+			if(u.equals("q")|| u.equals("Q")){
 				System.exit(0);
 			}
+			System.out.println("enter password");
+			String pas = s.nextLine();
 			for(int i = 0; i < userList.size(); i++){
-				if(userList.get(i).check(u,pas)){
+				System.out.println(userList.size());
+				if(userList.get(i).check(u,pas)== true){
+					System.out.println("test2");
 					currentusr = i;
+					flag = false;
+					break;
+					
+				}
+				else{
+					currentusr = -1;
+					flag = false;
+					break;
 				}
 			}
+			
 		}
 
 
@@ -80,9 +96,10 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Q/q should reset the currentUser to 0 and then end return
 	// Note: if login() did not set a valid currentUser, function must immediately return without showing menu
 	public void run(){
+		login();
 		Scanner sc = new Scanner(System.in);
 		String usr_inp;
-		if(currentusr != 0){
+		if(currentusr >= 0){
 			while(true){
 				System.out.println("--- Display Messages ('D' or 'd')");
 				System.out.println("--- Add New Topic ('N' or 'n')");
