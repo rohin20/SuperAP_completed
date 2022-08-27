@@ -36,7 +36,20 @@ public class Message {
 	// Note: Each indentation increment represents 2 spaces. e.g. if indentation ==  1, the reply should be indented 2 spaces, 
 	// if it's 2, indent by 4 spaces, etc. 
 	public void print(int indentation){
-		System.out.println("helllooootest");
+		String ind = " ";
+		for(int b = indentation*2;b>0;b--){
+			ind += ind;
+		}
+		
+		
+		System.out.println(ind + "Message #"+id + ""+sub);
+		System.out.println(ind+"From"+author+":"+"   "+body);
+		
+		for(int i = 0; i<childList.size();i++){
+			childList.get(i).print(indentation+1);
+
+		}
+		
 
 	}
 
